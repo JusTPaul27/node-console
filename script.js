@@ -1,48 +1,48 @@
 const fs = require('fs');
 
-
-
-
-// function readCsv() {
-//     try {
-//         const data = fs.readFileSync('./libri.csv', 'utf8');
-//         console.log(data);
-//     } catch (err) {
-//        throw err;
- 
-//     }
+// try {
+//   const data = fs.readFileSync('./libri.csv', 'utf8');
+//   console.log(data);
+// } catch (err) {
+//   console.error(err.message);
+// } finally {
+//     console.log('Sono nel blocco finally')
 // }
 
+// function readCsv(){
+//     try {
+//         const data = fs.readFileSync('./libro.csv', 'utf8');
+//         console.log(data);
+//       } catch (err) {
+//         if (err.code === N) {
+//           throw err;
+//         }
+//       }
+// }
 
 // try {
-//     readCsv()
+//     readCsv();
 // } catch (error) {
-//     console.log('La funzione non funziona')
+//     console.log('la function non funziona')
 // }
 
 let data;
 
 try {
- data = fs.readFileSync('./libri.csv', 'utf8');
-} catch (err) {
-    console.log('File non trovato');
-}
+    data = fs.readFileSync('./libri.csv', 'utf8');
+  } catch (err) {
+    console.error('file non trovato');
+  }
 
-console.log(data)
 
-// let pippo = {nome: "pippo", dob: 2021};
 
-// console.log(pippo['nome']);
-
-// pippo['cognome'] = "De pippis";
-
-// console.log(pippo.cognome)
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //// STEP 1 - SPEZZARE LA STRINGA NELL'ARRAY 'LINES' DI LINEE;
   //// LET LINES = [LINEA1, LINEA2, LINEA3, LINEA4]
 
   let lines = data.split("\r\n", 4);
+  lines = lines.filter(l => l !== '')
 
   //// STEP 2 - CREARE UNA VARIABILE CHIAMATA 'PROPERTIES' CHE CONTIENE LE PAROLE DA CUI E' COMPOSTA LA PRIMA LINEA;
   //// CONST PROPERTIES = [TITLE, AUTHOR, PRICE, COPIES]
@@ -65,12 +65,13 @@ console.log(data)
   
   
   for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    const object = {}
-    const lineArray = line.split(',');
+    let line = lines[i];
+    let object = {}
+    let lineArray = line.split(',');
     for (let j = 0; j < properties.length; j++) {
-      const property = properties[j];
+      let property = properties[j];
       object[property] = lineArray[j];
+     property.trim()
     }
     array.push(object)
   }
@@ -82,4 +83,15 @@ console.log(data)
   //// STEP 5 - FARE CONSOLE.LOG DELL'ARRAY
 
 
-  // console.log(data)
+//   console.log(data)
+
+const jsonArray = JSON.stringify(array);
+
+console.log('JSON Array', jsonArray);
+
+try {
+    fs.writeFileSync('./output.json', jsonArray)
+} catch (error) {
+    console.error(err)
+}
+
