@@ -38,18 +38,48 @@ console.log(data)
 
 // console.log(pippo.cognome)
 
-////
-//1) spezzare la nostra stringa in un array di linee
-// let lines = ["title,author,price,copies", "iliade,omero,15.00,5, "odissea,omero,12.00,3",  "promessi sposi,manzoni,20.00,10"];
-//2) creo una variabile chiamata "properties" che conterrà un array con le parole di cui è composta la prima linea;
-// const properties = ["title", "author", "price", "copies"];
-// let lines = ["iliade,omero,15.00,5, "odissea,omero,12.00,3",  "promessi sposi,manzoni,20.00,10"];
-//3) creo un array vuoto per gli oggetti 
-//4) fare un ciclo su tutte le linee dentro lines
-// per ogni riga dentro lines 
-//creo un nuovo oggetto nuovo:
-//trasformo la linea in un array di parole : es lineArray = ["iliade", "omero", "15.00", "5"]
-//faccio un ciclo per ogni parola dentro properties
-//aggiungo al nuovo oggetto una proprietà con il nome della proprietà e associando il valore corrispondente nella linea
-//infilo il mio oggetto nell'array vuoto 
-//5) faccio un console.log dell'array 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //// STEP 1 - SPEZZARE LA STRINGA NELL'ARRAY 'LINES' DI LINEE;
+  //// LET LINES = [LINEA1, LINEA2, LINEA3, LINEA4]
+
+  let lines = data.split("\r\n", 4);
+
+  //// STEP 2 - CREARE UNA VARIABILE CHIAMATA 'PROPERTIES' CHE CONTIENE LE PAROLE DA CUI E' COMPOSTA LA PRIMA LINEA;
+  //// CONST PROPERTIES = [TITLE, AUTHOR, PRICE, COPIES]
+  //// LET LINES = [LINEA2, LINEA3, LINEA4]
+  let properties = lines.splice(0,1);
+  properties = properties[0].split(',')
+  // console.log(lines);
+  // console.log(properties);
+  
+  //// STEP 3 - CREARE UN ARRAY VUOTO PER GLI OBJECT
+  
+  const array = [];
+
+  //// STEP 4 - FARE UN CICLO SU TUTTE LE LINEE ALL'INTERNO DI 'LINES':
+  //// - CREARE UN OBJECT VUOTO
+  //// - TRASFORMARE LA LINEA IN UN ARRAY DI PAROLE /// ES: ['ILIADE', 'OMERO', '15.00', '10']
+  //// - FARE UN CICLO INTERNO PER OGNI PAROLA ALL'INTERNO DI 'PROPERTIES'
+  //// - AGGIUNGERE ALL'OBJECT UNA PROPERTY CON IL NOME DELLA PROPRIETA', ASSOCIANDO IL VALORE CORRISPONDENTE DELLA LINEA
+  //// - INSERIRE L'OBJECT ALL'INTERNO DELL'ARRAY VUOTO
+  
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const object = {}
+    const lineArray = line.split(',');
+    for (let j = 0; j < properties.length; j++) {
+      const property = properties[j];
+      object[property] = lineArray[j];
+    }
+    array.push(object)
+  }
+  console.log(array)
+  
+
+
+
+  //// STEP 5 - FARE CONSOLE.LOG DELL'ARRAY
+
+
+  // console.log(data)
